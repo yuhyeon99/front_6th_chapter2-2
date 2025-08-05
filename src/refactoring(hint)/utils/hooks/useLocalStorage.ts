@@ -9,7 +9,7 @@
 
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T,
+  initialValue: T
 ): [T, (value: T | ((val: T) => T)) => void] {
   // TODO: 구현
 }

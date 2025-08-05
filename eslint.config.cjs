@@ -1,16 +1,16 @@
-const { defineConfig, globalIgnores } = require("eslint/config");
+const { defineConfig, globalIgnores } = require('eslint/config');
 
-const globals = require("globals");
+const globals = require('globals');
 
-const { fixupConfigRules } = require("@eslint/compat");
+const { fixupConfigRules } = require('@eslint/compat');
 
-const tsParser = require("@typescript-eslint/parser");
-const reactRefresh = require("eslint-plugin-react-refresh");
-const js = require("@eslint/js");
+const tsParser = require('@typescript-eslint/parser');
+const reactRefresh = require('eslint-plugin-react-refresh');
+const js = require('@eslint/js');
 
-const { FlatCompat } = require("@eslint/eslintrc");
+const { FlatCompat } = require('@eslint/eslintrc');
 
-const prettier = require("eslint-plugin-prettier");
+const prettier = require('eslint-plugin-prettier');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -30,26 +30,26 @@ module.exports = defineConfig([
 
     extends: fixupConfigRules(
       compat.extends(
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:prettier/recommended",
-      ),
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:prettier/recommended'
+      )
     ),
 
     plugins: {
-      "react-refresh": reactRefresh,
+      'react-refresh': reactRefresh,
     },
 
     rules: {
-      "react-refresh/only-export-components": [
-        "warn",
+      'react-refresh/only-export-components': [
+        'warn',
         {
           allowConstantExport: true,
         },
       ],
-      "prettier/prettier": "error",
+      'prettier/prettier': 'error',
     },
   },
-  globalIgnores(["**/dist", "**/.eslintrc.cjs"]),
+  globalIgnores(['**/dist', '**/.eslintrc.cjs']),
 ]);
