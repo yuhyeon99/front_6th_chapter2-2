@@ -10,6 +10,8 @@ const js = require("@eslint/js");
 
 const { FlatCompat } = require("@eslint/eslintrc");
 
+const prettier = require("eslint-plugin-prettier");
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
@@ -31,6 +33,7 @@ module.exports = defineConfig([
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react-hooks/recommended",
+        "plugin:prettier/recommended",
       ),
     ),
 
@@ -45,6 +48,7 @@ module.exports = defineConfig([
           allowConstantExport: true,
         },
       ],
+      "prettier/prettier": "error",
     },
   },
   globalIgnores(["**/dist", "**/.eslintrc.cjs"]),
