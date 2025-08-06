@@ -5,6 +5,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'danger';
   className?: string;
   icon?: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export const Button = ({ children, onClick, disabled, variant = 'primary', className = '', icon }: ButtonProps) => {
