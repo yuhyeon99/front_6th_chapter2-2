@@ -1,6 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import { CartItem, Coupon, Product } from '../types';
 import { calculateCartTotal, calculateItemTotal } from './utils/calculators';
+import { formatPrice } from './utils/formatters';
+
+import { validateProductForm } from './utils/validators';
 
 interface ProductWithUI extends Product {
   description?: string;
@@ -64,6 +67,7 @@ const initialCoupons: Coupon[] = [
 ];
 
 const App = () => {
+
   const [products, setProducts] = useState<ProductWithUI[]>(() => {
     const saved = localStorage.getItem('products');
     if (saved) {
@@ -128,29 +132,14 @@ const App = () => {
     discountValue: 0,
   });
 
-  const formatPrice = (price: number, productId?: string): string => {
-    if (productId) {
-      const product = products.find((p) => p.id === productId);
-      if (product && getRemainingStock(product) <= 0) {
-        return 'SOLD OUT';
-      }
-    }
-
-    if (isAdmin) {
-      return `${price.toLocaleString()}원`;
-    }
-
-    return `₩${price.toLocaleString()}`;
-  };
-
-  
-
   const getRemainingStock = (product: Product): number => {
     const cartItem = cart.find((item) => item.product.id === product.id);
     const remaining = product.stock - (cartItem?.quantity || 0);
 
     return remaining;
   };
+
+  
 
   const addNotification = useCallback(
     (message: string, type: 'error' | 'success' | 'warning' = 'success') => {
