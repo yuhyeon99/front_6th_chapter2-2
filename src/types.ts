@@ -6,6 +6,12 @@ export interface Product {
   discounts: Discount[];
 }
 
+export interface Notification {
+  id: string;
+  message: string;
+  type: 'error' | 'success' | 'warning';
+}
+
 export interface ProductWithUI extends Product {
   description?: string;
   isRecommended?: boolean;

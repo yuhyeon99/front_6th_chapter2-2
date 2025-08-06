@@ -1,25 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
-import { CartItem, Coupon, initialCoupons, Product } from '../types';
 import { calculateCartTotal, calculateItemTotal } from './utils/calculators';
 import { formatPrice } from './utils/formatters';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import { useProducts } from './hooks/useProducts';
 import { validateProductForm } from './utils/validators';
-
-interface ProductWithUI extends Product {
-  description?: string;
-  isRecommended?: boolean;
-}
-
-interface Notification {
-  id: string;
-  message: string;
-  type: 'error' | 'success' | 'warning';
-}
 
 import { useCart } from './hooks/useCart';
 
 import { useCoupons } from './hooks/useCoupons';
+import { Notification, ProductWithUI } from '../types';
 
 const App = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
