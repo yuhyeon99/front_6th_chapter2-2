@@ -1,6 +1,6 @@
 import { CartItem, Coupon } from '../../types';
 
-export const getMaxApplicableDiscount = (item: CartItem, cart: CartItem[]): number => {
+export const getMaxApplicableDiscount = (item: CartItem, cart: CartItem[] = []): number => {
   const { discounts } = item.product;
   const { quantity } = item;
 
@@ -18,7 +18,7 @@ export const getMaxApplicableDiscount = (item: CartItem, cart: CartItem[]): numb
   return baseDiscount;
 };
 
-export const calculateItemTotal = (item: CartItem, cart: CartItem[]): number => {
+export const calculateItemTotal = (item: CartItem, cart: CartItem[] = []): number => {
   const { price } = item.product;
   const { quantity } = item;
   const discount = getMaxApplicableDiscount(item, cart);
