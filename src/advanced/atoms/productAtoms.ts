@@ -43,7 +43,7 @@ export const productsAtom = atomWithStorage<ProductWithUI[]>(
 
 export const addProductAtom = atom(
   null,
-  (get, set, newProduct: Omit<Product, 'id'>) => {
+  (_get, set, newProduct: Omit<Product, 'id'>) => {
     const product: Product = {
       ...newProduct,
       id: `p${Date.now()}`,
@@ -54,7 +54,7 @@ export const addProductAtom = atom(
 
 export const updateProductAtom = atom(
   null,
-  (get, set, productId: string, updates: Partial<Product>) => {
+  (_get, set, productId: string, updates: Partial<Product>) => {
     set(productsAtom, (prev) =>
       prev.map((product) =>
         product.id === productId ? { ...product, ...updates } : product
@@ -63,6 +63,6 @@ export const updateProductAtom = atom(
   }
 );
 
-export const deleteProductAtom = atom(null, (get, set, productId: string) => {
+export const deleteProductAtom = atom(null, (_get, set, productId: string) => {
   set(productsAtom, (prev) => prev.filter((p) => p.id !== productId));
 });

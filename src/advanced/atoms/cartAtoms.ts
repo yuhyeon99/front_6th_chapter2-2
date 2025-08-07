@@ -52,7 +52,7 @@ export const addToCartAtom = atom(null, (get, set, product: ProductWithUI) => {
   set(addNotificationAtom, '장바구니에 담았습니다', 'success');
 });
 
-export const removeFromCartAtom = atom(null, (get, set, productId: string) => {
+export const removeFromCartAtom = atom(null, (_get, set, productId: string) => {
   set(cartAtom, (prevCart) =>
     prevCart.filter((item) => item.product.id !== productId)
   );
@@ -94,6 +94,6 @@ export const calculateCartItemTotalAtom = atom((get) => (item: CartItem) => {
   return calculateItemTotal(item, cart);
 });
 
-export const clearCartAtom = atom(null, (get, set) => {
+export const clearCartAtom = atom(null, (_get, set) => {
   set(cartAtom, []);
 });

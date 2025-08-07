@@ -7,7 +7,7 @@ export const notificationAtom = atom<{
 
 export const addNotificationAtom = atom(
   null,
-  (get, set, message: string, type: 'error' | 'success' | 'warning') => {
+  (_get, set, message: string, type: 'error' | 'success' | 'warning') => {
     set(notificationAtom, { message, type });
     setTimeout(() => {
       set(notificationAtom, null);
