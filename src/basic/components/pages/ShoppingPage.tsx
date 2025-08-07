@@ -1,6 +1,6 @@
 // components/pages/ShoppingPage.tsx
 import { useState, useCallback, useEffect } from 'react';
-import { calculateCartTotal } from '../../utils/calculators';
+import { calculateCartTotal, calculateItemTotal } from '../../utils/calculators';
 import { formatPrice } from '../../utils/formatters';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
@@ -191,10 +191,7 @@ export const ShoppingPage = ({
                         item={item}
                         onUpdateQuantity={updateQuantity}
                         onRemove={removeFromCart}
-                        calculateItemTotal={(cartItem) =>
-                          calculateCartTotal(cart, selectedCoupon)
-                            .totalAfterDiscount
-                        }
+                        calculateItemTotal={(item) => calculateItemTotal(item, cart)}
                       />
                     ))}
                   </div>
