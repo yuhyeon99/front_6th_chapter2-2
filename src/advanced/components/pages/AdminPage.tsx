@@ -3,18 +3,19 @@
 import { useState, useCallback } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import { useCoupons } from '../../hooks/useCoupons';
+import { useNotifications } from '../../hooks/useNotifications';
+import { useSetAtom } from 'jotai';
+import { addNotificationAtom } from '../../atoms/notificationAtoms';
 import { formatPrice } from '../../utils/formatters';
 import { Notification as UINotification } from '../ui/Notification';
 import { Button } from '../ui/Button';
 import { ProductWithUI } from '../../../types';
 
-interface AdminPageProps {
-  addNotification: (message: string, type?: 'error' | 'success' | 'warning') => void;
-}
-
-export const AdminPage = ({ addNotification }: AdminPageProps) => {
+export const AdminPage = () => {
+  const { addNotification } = useNotifications();
+  const setAddNotification = useSetAtom(addNotificationAtom);
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
-  const { coupons, selectedCoupon, setSelectedCoupon, addCoupon, deleteCoupon } = useCoupons(null, addNotification);
+  const { coupons, selectedCoupon, setSelectedCoupon, addCoupon, deleteCoupon } = useCoupons();
 
   const [activeTab, setActiveTab] = useState<'products' | 'coupons'>(
     'products'
@@ -268,7 +269,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         if (value === '') {
                           setProductForm({ ...productForm, price: 0 });
                         } else if (parseInt(value) < 0) {
-                          addNotification(
+                          setAddNotification(
                             '가격은 0보다 커야 합니다',
                             'error'
                           );
@@ -303,13 +304,13 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         if (value === '') {
                           setProductForm({ ...productForm, stock: 0 });
                         } else if (parseInt(value) < 0) {
-                          addNotification(
+                          setAddNotification(
                             '재고는 0보다 커야 합니다',
                             'error'
                           );
                           setProductForm({ ...productForm, stock: 0 });
                         } else if (parseInt(value) > 9999) {
-                          addNotification(
+                          setAddNotification(
                             '재고는 9999개를 초과할 수 없습니다',
                             'error'
                           );
@@ -616,7 +617,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                           const value = parseInt(e.target.value) || 0;
                           if (couponForm.discountType === 'percentage') {
                             if (value > 100) {
-                              addNotification(
+                              setAddNotification(
                                 '할인율은 100%를 초과할 수 없습니다',
                                 'error'
                               );
@@ -632,7 +633,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                             }
                           } else {
                             if (value > 100000) {
-                              addNotification(
+                              setAddNotification(
                                 '할인 금액은 100,000원을 초과할 수 없습니다',
                                 'error'
                               );
