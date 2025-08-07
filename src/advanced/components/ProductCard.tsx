@@ -1,4 +1,4 @@
-import { ProductWithUI } from '../../types';
+import { ProductWithUI } from '../types';
 import { Button } from './ui/Button';
 
 interface ProductCardProps {

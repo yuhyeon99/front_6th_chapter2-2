@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { Coupon, initialCoupons } from '../../types';
 import { addNotificationAtom } from './notificationAtoms';
 import { cartAtom } from './cartAtoms';
 import { calculateCartTotal } from '../utils/calculators';
+import { Coupon, initialCoupons } from '../types';
 
 export const couponsAtom = atomWithStorage<Coupon[]>('coupons', initialCoupons);
 export const selectedCouponAtom = atom<Coupon | null>(null);

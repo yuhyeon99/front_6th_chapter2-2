@@ -1,4 +1,4 @@
-import { Product } from '../../types';
+import { Product } from "../types";
 
 export const validateProductForm = (form: Omit<Product, 'id'>): string[] => {
   const errors: string[] = [];

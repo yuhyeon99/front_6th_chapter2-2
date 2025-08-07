@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { CartItem, Product, ProductWithUI } from '../../types';
 import { productsAtom } from './productAtoms';
 import { addNotificationAtom } from './notificationAtoms';
 import { calculateItemTotal } from '../utils/calculators';
+import { CartItem, Product, ProductWithUI } from '../types';
 
 export const cartAtom = atomWithStorage<CartItem[]>('cart', []);
 
