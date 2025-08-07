@@ -57,7 +57,7 @@ export const ProductCard = ({
         {/* 가격 정보 */}
         <div className="mb-3">
           <p className="text-lg font-bold text-gray-900">
-            {formatPrice(product.price, product.id, false, getRemainingStock(product))}
+            {formatPrice(product.price, product.id)}
           </p>
           {product.discounts.length > 0 && (
             <p className="text-xs text-gray-500">
