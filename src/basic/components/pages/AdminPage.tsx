@@ -1,9 +1,8 @@
 // components/pages/AdminPage.tsx
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import { useCoupons } from '../../hooks/useCoupons';
 import { formatPrice } from '../../utils/formatters';
-import { Notification as UINotification } from '../ui/Notification';
 import { Button } from '../ui/Button';
 import { ProductWithUI } from '../../../types';
 
@@ -18,11 +17,9 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
   const {
     coupons,
-    selectedCoupon,
-    setSelectedCoupon,
     addCoupon,
     deleteCoupon,
-  } = useCoupons(null, addNotification);
+  } = useCoupons([], addNotification);
 
   const [activeTab, setActiveTab] = useState<'products' | 'coupons'>(
     'products'
@@ -168,7 +165,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         {product.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formatPrice(product.price, product.id)}
+                        {formatPrice(product.price, true)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <span
