@@ -6,7 +6,7 @@ import { useSetAtom } from 'jotai';
 import { addNotificationAtom } from '../../atoms/notificationAtoms';
 import { formatPrice } from '../../utils/formatters';
 import { Button } from '../ui/Button';
-import { ProductWithUI } from '../../../types';
+import { ProductWithUI } from '../../types';
 
 export const AdminPage = () => {
   const setAddNotification = useSetAtom(addNotificationAtom);
