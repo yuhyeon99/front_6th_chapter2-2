@@ -6,7 +6,7 @@ import { useCart } from '../../hooks/useCart';
 import { useCoupons } from '../../hooks/useCoupons';
 import { useNotifications } from '../../hooks/useNotifications';
 import { ProductCard } from '../ProductCard';
-import { CartItem } from '../CartItem';
+import { CartItemComponent } from '../CartItem';
 import { Button } from '../ui/Button';
 import { cartAtom, clearCartAtom } from '../../atoms/cartAtoms';
 import { calculateCartTotal } from '../../utils/calculators';
@@ -183,7 +183,7 @@ export const ShoppingPage = () => {
                 ) : (
                   <div className="space-y-3">
                     {cart.map((item) => (
-                      <CartItem
+                      <CartItemComponent
                         key={item.product.id}
                         item={item}
                         onUpdateQuantity={updateQuantity}
