@@ -1,3 +1,4 @@
+import { Product } from '../../types';
 import { Button } from './ui/Button';
 
 interface ProductCardProps {
