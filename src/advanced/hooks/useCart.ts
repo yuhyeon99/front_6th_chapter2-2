@@ -7,7 +7,6 @@ import {
   getRemainingStockAtom,
   calculateCartItemTotalAtom,
 } from '../atoms/cartAtoms';
-import { Product, CartItem } from '../../types';
 
 export const useCart = () => {
   const cart = useAtomValue(cartAtom);

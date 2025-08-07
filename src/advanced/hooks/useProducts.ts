@@ -5,7 +5,6 @@ import {
   updateProductAtom,
   deleteProductAtom,
 } from '../atoms/productAtoms';
-import { Product } from '../../types';
 
 export const useProducts = () => {
   const products = useAtomValue(productsAtom);

@@ -6,7 +6,6 @@ import {
   addCouponAtom,
   deleteCouponAtom,
 } from '../atoms/couponAtoms';
-import { Coupon } from '../../types';
 
 export const useCoupons = () => {
   const coupons = useAtomValue(couponsAtom);

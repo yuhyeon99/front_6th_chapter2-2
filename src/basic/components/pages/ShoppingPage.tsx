@@ -1,9 +1,6 @@
 // components/pages/ShoppingPage.tsx
 import { useState, useCallback, useEffect } from 'react';
-import {
-  calculateCartTotal,
-  calculateItemTotal,
-} from '../../utils/calculators';
+import { calculateCartTotal } from '../../utils/calculators';
 import { formatPrice } from '../../utils/formatters';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
@@ -11,7 +8,6 @@ import { useCoupons } from '../../hooks/useCoupons';
 import { ProductCard } from '../ProductCard';
 import { CartItem } from '../CartItem';
 import { Button } from '../ui/Button';
-import { Notification } from '../../../types';
 
 export const ShoppingPage = ({
   addNotification,
