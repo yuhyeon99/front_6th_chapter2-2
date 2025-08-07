@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import { Product, ProductWithUI } from '../../types';
+import { Product, ProductWithUI } from '../types';
 
 const initialProducts: ProductWithUI[] = [
   {
