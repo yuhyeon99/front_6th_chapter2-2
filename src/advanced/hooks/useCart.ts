@@ -1,5 +1,12 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { cartAtom, addToCartAtom, removeFromCartAtom, updateQuantityAtom, getRemainingStockAtom, calculateCartItemTotalAtom } from '../atoms/cartAtoms';
+import {
+  cartAtom,
+  addToCartAtom,
+  removeFromCartAtom,
+  updateQuantityAtom,
+  getRemainingStockAtom,
+  calculateCartItemTotalAtom,
+} from '../atoms/cartAtoms';
 import { Product, CartItem } from '../../types';
 
 export const useCart = () => {

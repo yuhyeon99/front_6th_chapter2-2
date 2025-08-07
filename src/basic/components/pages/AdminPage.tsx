@@ -1,4 +1,3 @@
-
 // components/pages/AdminPage.tsx
 import { useState, useCallback } from 'react';
 import { useProducts } from '../../hooks/useProducts';
@@ -9,12 +8,21 @@ import { Button } from '../ui/Button';
 import { ProductWithUI } from '../../../types';
 
 interface AdminPageProps {
-  addNotification: (message: string, type?: 'error' | 'success' | 'warning') => void;
+  addNotification: (
+    message: string,
+    type?: 'error' | 'success' | 'warning'
+  ) => void;
 }
 
 export const AdminPage = ({ addNotification }: AdminPageProps) => {
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
-  const { coupons, selectedCoupon, setSelectedCoupon, addCoupon, deleteCoupon } = useCoupons(null, addNotification);
+  const {
+    coupons,
+    selectedCoupon,
+    setSelectedCoupon,
+    addCoupon,
+    deleteCoupon,
+  } = useCoupons(null, addNotification);
 
   const [activeTab, setActiveTab] = useState<'products' | 'coupons'>(
     'products'
@@ -86,12 +94,8 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
-          관리자 대시보드
-        </h1>
-        <p className="text-gray-600 mt-1">
-          상품과 쿠폰을 관리할 수 있습니다
-        </p>
+        <h1 className="text-2xl font-bold text-gray-900">관리자 대시보드</h1>
+        <p className="text-gray-600 mt-1">상품과 쿠폰을 관리할 수 있습니다</p>
       </div>
       <div className="border-b border-gray-200 mb-6">
         <nav className="-mb-px flex space-x-8">
@@ -207,9 +211,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
             <div className="p-6 border-t border-gray-200 bg-gray-50">
               <form onSubmit={handleProductSubmit} className="space-y-4">
                 <h3 className="text-lg font-medium text-gray-900">
-                  {editingProduct === 'new'
-                    ? '새 상품 추가'
-                    : '상품 수정'}
+                  {editingProduct === 'new' ? '새 상품 추가' : '상품 수정'}
                 </h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
@@ -251,9 +253,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                     </label>
                     <input
                       type="text"
-                      value={
-                        productForm.price === 0 ? '' : productForm.price
-                      }
+                      value={productForm.price === 0 ? '' : productForm.price}
                       onChange={(e) => {
                         const value = e.target.value;
                         if (value === '' || /^\d+$/.test(value)) {
@@ -268,10 +268,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         if (value === '') {
                           setProductForm({ ...productForm, price: 0 });
                         } else if (parseInt(value) < 0) {
-                          addNotification(
-                            '가격은 0보다 커야 합니다',
-                            'error'
-                          );
+                          addNotification('가격은 0보다 커야 합니다', 'error');
                           setProductForm({ ...productForm, price: 0 });
                         }
                       }}
@@ -286,9 +283,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                     </label>
                     <input
                       type="text"
-                      value={
-                        productForm.stock === 0 ? '' : productForm.stock
-                      }
+                      value={productForm.stock === 0 ? '' : productForm.stock}
                       onChange={(e) => {
                         const value = e.target.value;
                         if (value === '' || /^\d+$/.test(value)) {
@@ -303,10 +298,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         if (value === '') {
                           setProductForm({ ...productForm, stock: 0 });
                         } else if (parseInt(value) < 0) {
-                          addNotification(
-                            '재고는 0보다 커야 합니다',
-                            'error'
-                          );
+                          addNotification('재고는 0보다 커야 합니다', 'error');
                           setProductForm({ ...productForm, stock: 0 });
                         } else if (parseInt(value) > 9999) {
                           addNotification(
@@ -336,9 +328,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                           type="number"
                           value={discount.quantity}
                           onChange={(e) => {
-                            const newDiscounts = [
-                              ...productForm.discounts,
-                            ];
+                            const newDiscounts = [...productForm.discounts];
                             newDiscounts[index].quantity =
                               parseInt(e.target.value) || 0;
                             setProductForm({
@@ -355,9 +345,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                           type="number"
                           value={discount.rate * 100}
                           onChange={(e) => {
-                            const newDiscounts = [
-                              ...productForm.discounts,
-                            ];
+                            const newDiscounts = [...productForm.discounts];
                             newDiscounts[index].rate =
                               (parseInt(e.target.value) || 0) / 100;
                             setProductForm({
@@ -374,10 +362,9 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         <Button
                           type="button"
                           onClick={() => {
-                            const newDiscounts =
-                              productForm.discounts.filter(
-                                (_, i) => i !== index
-                              );
+                            const newDiscounts = productForm.discounts.filter(
+                              (_, i) => i !== index
+                            );
                             setProductForm({
                               ...productForm,
                               discounts: newDiscounts,
@@ -607,8 +594,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                           if (value === '' || /^\d+$/.test(value)) {
                             setCouponForm({
                               ...couponForm,
-                              discountValue:
-                                value === '' ? 0 : parseInt(value),
+                              discountValue: value === '' ? 0 : parseInt(value),
                             });
                           }
                         }}
@@ -650,9 +636,7 @@ export const AdminPage = ({ addNotification }: AdminPageProps) => {
                         }}
                         className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-3 py-2 border text-sm"
                         placeholder={
-                          couponForm.discountType === 'amount'
-                            ? '5000'
-                            : '10'
+                          couponForm.discountType === 'amount' ? '5000' : '10'
                         }
                         required
                       />

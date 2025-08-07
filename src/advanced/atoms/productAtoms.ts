@@ -36,7 +36,10 @@ const initialProducts: ProductWithUI[] = [
   },
 ];
 
-export const productsAtom = atomWithStorage<ProductWithUI[]>('products', initialProducts);
+export const productsAtom = atomWithStorage<ProductWithUI[]>(
+  'products',
+  initialProducts
+);
 
 export const addProductAtom = atom(
   null,
@@ -60,9 +63,6 @@ export const updateProductAtom = atom(
   }
 );
 
-export const deleteProductAtom = atom(
-  null,
-  (get, set, productId: string) => {
-    set(productsAtom, (prev) => prev.filter((p) => p.id !== productId));
-  }
-);
+export const deleteProductAtom = atom(null, (get, set, productId: string) => {
+  set(productsAtom, (prev) => prev.filter((p) => p.id !== productId));
+});

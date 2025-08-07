@@ -1,5 +1,8 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { notificationAtom, addNotificationAtom } from '../atoms/notificationAtoms';
+import {
+  notificationAtom,
+  addNotificationAtom,
+} from '../atoms/notificationAtoms';
 
 export const useNotifications = () => {
   const notification = useAtomValue(notificationAtom);

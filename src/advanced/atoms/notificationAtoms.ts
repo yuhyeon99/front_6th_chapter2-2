@@ -1,6 +1,9 @@
 import { atom } from 'jotai';
 
-export const notificationAtom = atom<{ message: string; type: 'error' | 'success' | 'warning' } | null>(null);
+export const notificationAtom = atom<{
+  message: string;
+  type: 'error' | 'success' | 'warning';
+} | null>(null);
 
 export const addNotificationAtom = atom(
   null,

@@ -1,5 +1,11 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { couponsAtom, selectedCouponAtom, applyCouponAtom, addCouponAtom, deleteCouponAtom } from '../atoms/couponAtoms';
+import {
+  couponsAtom,
+  selectedCouponAtom,
+  applyCouponAtom,
+  addCouponAtom,
+  deleteCouponAtom,
+} from '../atoms/couponAtoms';
 import { Coupon } from '../../types';
 
 export const useCoupons = () => {

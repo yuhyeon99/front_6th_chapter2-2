@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useEffect } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { formatPrice } from '../../utils/formatters';
@@ -13,20 +12,29 @@ import { cartAtom, clearCartAtom } from '../../atoms/cartAtoms';
 import { selectedCouponAtom } from '../../atoms/couponAtoms';
 import { calculateCartTotal } from '../../utils/calculators';
 
-
 export const ShoppingPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
   const { products } = useProducts();
-  const { cart, addToCart, removeFromCart, updateQuantity, getRemainingStock, calculateItemTotal } = useCart();
-  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } = useCoupons();
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    getRemainingStock,
+    calculateItemTotal,
+  } = useCart();
+  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } =
+    useCoupons();
   const { addNotification } = useNotifications();
 
-  const totalItemCount = useAtomValue(cartAtom).reduce((sum, item) => sum + item.quantity, 0);
+  const totalItemCount = useAtomValue(cartAtom).reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
   const cartTotal = calculateCartTotal(cart, selectedCoupon);
   const clearCart = useSetAtom(clearCartAtom);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -64,9 +72,7 @@ export const ShoppingPage = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center flex-1">
-              <h1 className="text-xl font-semibold text-gray-800">
-                SHOP
-              </h1>
+              <h1 className="text-xl font-semibold text-gray-800">SHOP</h1>
               <div className="ml-8 flex-1 max-w-md">
                 <input
                   type="text"
@@ -259,7 +265,10 @@ export const ShoppingPage = () => {
                       </div>
                     </div>
 
-                    <Button onClick={completeOrder} className="w-full mt-4 py-3">
+                    <Button
+                      onClick={completeOrder}
+                      className="w-full mt-4 py-3"
+                    >
                       {cartTotal.totalAfterDiscount.toLocaleString()}원 결제하기
                     </Button>
 

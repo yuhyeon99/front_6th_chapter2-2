@@ -1,5 +1,10 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { productsAtom, addProductAtom, updateProductAtom, deleteProductAtom } from '../atoms/productAtoms';
+import {
+  productsAtom,
+  addProductAtom,
+  updateProductAtom,
+  deleteProductAtom,
+} from '../atoms/productAtoms';
 import { Product } from '../../types';
 
 export const useProducts = () => {

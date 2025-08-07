@@ -18,7 +18,10 @@ export const useCoupons = (
 
   const applyCoupon = useCallback(
     (coupon: Coupon) => {
-      const currentTotal = calculateCartTotal(cart, selectedCoupon).totalAfterDiscount;
+      const currentTotal = calculateCartTotal(
+        cart,
+        selectedCoupon
+      ).totalAfterDiscount;
 
       if (currentTotal < 10000 && coupon.discountType === 'percentage') {
         addNotification(

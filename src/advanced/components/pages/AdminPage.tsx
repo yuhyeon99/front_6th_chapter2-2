@@ -1,4 +1,3 @@
-
 // components/pages/AdminPage.tsx
 import { useState, useCallback } from 'react';
 import { useProducts } from '../../hooks/useProducts';
@@ -15,7 +14,13 @@ export const AdminPage = () => {
   const { addNotification } = useNotifications();
   const setAddNotification = useSetAtom(addNotificationAtom);
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
-  const { coupons, selectedCoupon, setSelectedCoupon, addCoupon, deleteCoupon } = useCoupons();
+  const {
+    coupons,
+    selectedCoupon,
+    setSelectedCoupon,
+    addCoupon,
+    deleteCoupon,
+  } = useCoupons();
 
   const [activeTab, setActiveTab] = useState<'products' | 'coupons'>(
     'products'
@@ -87,12 +92,8 @@ export const AdminPage = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">
-          관리자 대시보드
-        </h1>
-        <p className="text-gray-600 mt-1">
-          상품과 쿠폰을 관리할 수 있습니다
-        </p>
+        <h1 className="text-2xl font-bold text-gray-900">관리자 대시보드</h1>
+        <p className="text-gray-600 mt-1">상품과 쿠폰을 관리할 수 있습니다</p>
       </div>
       <div className="border-b border-gray-200 mb-6">
         <nav className="-mb-px flex space-x-8">
@@ -208,9 +209,7 @@ export const AdminPage = () => {
             <div className="p-6 border-t border-gray-200 bg-gray-50">
               <form onSubmit={handleProductSubmit} className="space-y-4">
                 <h3 className="text-lg font-medium text-gray-900">
-                  {editingProduct === 'new'
-                    ? '새 상품 추가'
-                    : '상품 수정'}
+                  {editingProduct === 'new' ? '새 상품 추가' : '상품 수정'}
                 </h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
@@ -252,9 +251,7 @@ export const AdminPage = () => {
                     </label>
                     <input
                       type="text"
-                      value={
-                        productForm.price === 0 ? '' : productForm.price
-                      }
+                      value={productForm.price === 0 ? '' : productForm.price}
                       onChange={(e) => {
                         const value = e.target.value;
                         if (value === '' || /^\d+$/.test(value)) {
@@ -287,9 +284,7 @@ export const AdminPage = () => {
                     </label>
                     <input
                       type="text"
-                      value={
-                        productForm.stock === 0 ? '' : productForm.stock
-                      }
+                      value={productForm.stock === 0 ? '' : productForm.stock}
                       onChange={(e) => {
                         const value = e.target.value;
                         if (value === '' || /^\d+$/.test(value)) {
@@ -337,9 +332,7 @@ export const AdminPage = () => {
                           type="number"
                           value={discount.quantity}
                           onChange={(e) => {
-                            const newDiscounts = [
-                              ...productForm.discounts,
-                            ];
+                            const newDiscounts = [...productForm.discounts];
                             newDiscounts[index].quantity =
                               parseInt(e.target.value) || 0;
                             setProductForm({
@@ -356,9 +349,7 @@ export const AdminPage = () => {
                           type="number"
                           value={discount.rate * 100}
                           onChange={(e) => {
-                            const newDiscounts = [
-                              ...productForm.discounts,
-                            ];
+                            const newDiscounts = [...productForm.discounts];
                             newDiscounts[index].rate =
                               (parseInt(e.target.value) || 0) / 100;
                             setProductForm({
@@ -375,10 +366,9 @@ export const AdminPage = () => {
                         <Button
                           type="button"
                           onClick={() => {
-                            const newDiscounts =
-                              productForm.discounts.filter(
-                                (_, i) => i !== index
-                              );
+                            const newDiscounts = productForm.discounts.filter(
+                              (_, i) => i !== index
+                            );
                             setProductForm({
                               ...productForm,
                               discounts: newDiscounts,
@@ -608,8 +598,7 @@ export const AdminPage = () => {
                           if (value === '' || /^\d+$/.test(value)) {
                             setCouponForm({
                               ...couponForm,
-                              discountValue:
-                                value === '' ? 0 : parseInt(value),
+                              discountValue: value === '' ? 0 : parseInt(value),
                             });
                           }
                         }}
@@ -651,9 +640,7 @@ export const AdminPage = () => {
                         }}
                         className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-3 py-2 border text-sm"
                         placeholder={
-                          couponForm.discountType === 'amount'
-                            ? '5000'
-                            : '10'
+                          couponForm.discountType === 'amount' ? '5000' : '10'
                         }
                         required
                       />

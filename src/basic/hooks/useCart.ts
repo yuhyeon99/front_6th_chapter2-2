@@ -95,5 +95,12 @@ export const useCart = (
     [products, removeFromCart, addNotification, setCart]
   );
 
-  return { cart, setCart, addToCart, removeFromCart, updateQuantity, getRemainingStock };
+  return {
+    cart,
+    setCart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    getRemainingStock,
+  };
 };

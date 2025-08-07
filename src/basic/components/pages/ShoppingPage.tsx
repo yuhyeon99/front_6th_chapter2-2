@@ -1,7 +1,9 @@
-
 // components/pages/ShoppingPage.tsx
 import { useState, useCallback, useEffect } from 'react';
-import { calculateCartTotal, calculateItemTotal } from '../../utils/calculators';
+import {
+  calculateCartTotal,
+  calculateItemTotal,
+} from '../../utils/calculators';
 import { formatPrice } from '../../utils/formatters';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
@@ -11,14 +13,29 @@ import { CartItem } from '../CartItem';
 import { Button } from '../ui/Button';
 import { Notification } from '../../../types';
 
-export const ShoppingPage = ({ addNotification }: { addNotification: (message: string, type?: 'error' | 'success' | 'warning') => void }) => {
+export const ShoppingPage = ({
+  addNotification,
+}: {
+  addNotification: (
+    message: string,
+    type?: 'error' | 'success' | 'warning'
+  ) => void;
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [totalItemCount, setTotalItemCount] = useState(0);
 
   const { products } = useProducts();
-  const { cart, setCart, addToCart, removeFromCart, updateQuantity, getRemainingStock } = useCart(addNotification);
-  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } = useCoupons(cart, addNotification);
+  const {
+    cart,
+    setCart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    getRemainingStock,
+  } = useCart(addNotification);
+  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } =
+    useCoupons(cart, addNotification);
 
   useEffect(() => {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -178,7 +195,10 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                         item={item}
                         onUpdateQuantity={updateQuantity}
                         onRemove={removeFromCart}
-                        calculateItemTotal={(cartItem) => calculateCartTotal(cart, selectedCoupon).totalAfterDiscount}
+                        calculateItemTotal={(cartItem) =>
+                          calculateCartTotal(cart, selectedCoupon)
+                            .totalAfterDiscount
+                        }
                       />
                     ))}
                   </div>
@@ -228,19 +248,27 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                       <div className="flex justify-between">
                         <span className="text-gray-600">상품 금액</span>
                         <span className="font-medium">
-                          {calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount.toLocaleString()}원
+                          {calculateCartTotal(
+                            cart,
+                            selectedCoupon
+                          ).totalBeforeDiscount.toLocaleString()}
+                          원
                         </span>
                       </div>
-                      {calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount -
-                        calculateCartTotal(cart, selectedCoupon).totalAfterDiscount >
+                      {calculateCartTotal(cart, selectedCoupon)
+                        .totalBeforeDiscount -
+                        calculateCartTotal(cart, selectedCoupon)
+                          .totalAfterDiscount >
                         0 && (
                         <div className="flex justify-between text-red-500">
                           <span>할인 금액</span>
                           <span>
                             -
                             {(
-                              calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount -
-                              calculateCartTotal(cart, selectedCoupon).totalAfterDiscount
+                              calculateCartTotal(cart, selectedCoupon)
+                                .totalBeforeDiscount -
+                              calculateCartTotal(cart, selectedCoupon)
+                                .totalAfterDiscount
                             ).toLocaleString()}
                             원
                           </span>
@@ -249,13 +277,24 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                       <div className="flex justify-between py-2 border-t border-gray-200">
                         <span className="font-semibold">결제 예정 금액</span>
                         <span className="font-bold text-lg text-gray-900">
-                          {calculateCartTotal(cart, selectedCoupon).totalAfterDiscount.toLocaleString()}원
+                          {calculateCartTotal(
+                            cart,
+                            selectedCoupon
+                          ).totalAfterDiscount.toLocaleString()}
+                          원
                         </span>
                       </div>
                     </div>
 
-                    <Button onClick={completeOrder} className="w-full mt-4 py-3">
-                      {calculateCartTotal(cart, selectedCoupon).totalAfterDiscount.toLocaleString()}원 결제하기
+                    <Button
+                      onClick={completeOrder}
+                      className="w-full mt-4 py-3"
+                    >
+                      {calculateCartTotal(
+                        cart,
+                        selectedCoupon
+                      ).totalAfterDiscount.toLocaleString()}
+                      원 결제하기
                     </Button>
 
                     <div className="mt-3 text-xs text-gray-500 text-center">

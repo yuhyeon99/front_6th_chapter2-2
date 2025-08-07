@@ -5,7 +5,6 @@ import { Notification } from '../types';
 import { ShoppingPage } from './components/pages/ShoppingPage';
 import { AdminPage } from './components/pages/AdminPage';
 
-
 const App = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const addNotification = useCallback(

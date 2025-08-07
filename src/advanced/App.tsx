@@ -18,7 +18,9 @@ const App = () => {
           <UINotification
             message={notification.message}
             type={notification.type}
-            onClose={() => { /* Handled by atom's setTimeout */ }}
+            onClose={() => {
+              /* Handled by atom's setTimeout */
+            }}
           />
         </div>
       )}
@@ -42,11 +44,7 @@ const App = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {isAdmin ? (
-          <AdminPage />
-        ) : (
-          <ShoppingPage />
-        )}
+        {isAdmin ? <AdminPage /> : <ShoppingPage />}
       </main>
     </div>
   );
