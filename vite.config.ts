@@ -9,7 +9,9 @@ export default mergeConfig(
     build: {
       outDir: 'dist/advanced', // src/advanced 빌드 결과물이 저장될 디렉토리
       rollupOptions: {
-        input: './index.advanced.html', // src/advanced의 진입점 HTML 파일
+        input: {
+          main: 'index.advanced.html', // src/advanced의 진입점 HTML 파일
+        },
       },
     },
   }),
