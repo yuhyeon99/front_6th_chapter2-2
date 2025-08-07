@@ -2,8 +2,8 @@ import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { CartItem, Product, ProductWithUI } from '../../types';
 import { productsAtom } from './productAtoms';
-import { calculateItemTotal } from '../../basic/utils/calculators';
 import { addNotificationAtom } from './notificationAtoms';
+import { calculateItemTotal } from '../utils/calculators';
 
 export const cartAtom = atomWithStorage<CartItem[]>('cart', []);
 
@@ -21,7 +21,7 @@ export const addToCartAtom = atom(
     const remainingStock = getRemainingStock(product);
 
     if (remainingStock <= 0) {
-      addNotification('재고가 부족합니다!', 'error');
+      set(addNotificationAtom, '재고가 부족합니다!', 'error');
       return;
     }
 
@@ -34,7 +34,7 @@ export const addToCartAtom = atom(
         const newQuantity = existingItem.quantity + 1;
 
         if (newQuantity > product.stock) {
-          addNotification(
+          set(addNotificationAtom,
             `재고는 ${product.stock}개까지만 있습니다.`,
             'error'
           );
@@ -51,7 +51,7 @@ export const addToCartAtom = atom(
       return [...prevCart, { product, quantity: 1 }];
     });
 
-    addNotification('장바구니에 담았습니다', 'success');
+    set(addNotificationAtom, '장바구니에 담았습니다', 'success');
   }
 );
 
@@ -83,7 +83,7 @@ export const updateQuantityAtom = atom(
 
     const maxStock = product.stock;
     if (newQuantity > maxStock) {
-      addNotification(`재고는 ${maxStock}개까지만 있습니다.`, 'error');
+      set(addNotificationAtom, `재고는 ${maxStock}개까지만 있습니다.`, 'error');
       return;
     }
 
@@ -98,5 +98,13 @@ export const updateQuantityAtom = atom(
 );
 
 export const calculateCartItemTotalAtom = atom((get) => (item: CartItem) => {
-  return calculateItemTotal(item);
+  const cart = get(cartAtom);
+  return calculateItemTotal(item, cart);
 });
+
+export const clearCartAtom = atom(
+  null,
+  (get, set) => {
+    set(cartAtom, []);
+  }
+);
