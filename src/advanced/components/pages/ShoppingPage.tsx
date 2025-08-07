@@ -9,7 +9,6 @@ import { ProductCard } from '../ProductCard';
 import { CartItem } from '../CartItem';
 import { Button } from '../ui/Button';
 import { cartAtom, clearCartAtom } from '../../atoms/cartAtoms';
-import { selectedCouponAtom } from '../../atoms/couponAtoms';
 import { calculateCartTotal } from '../../utils/calculators';
 
 export const ShoppingPage = () => {

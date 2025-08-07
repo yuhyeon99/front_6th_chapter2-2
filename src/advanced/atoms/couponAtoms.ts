@@ -9,7 +9,6 @@ export const couponsAtom = atomWithStorage<Coupon[]>('coupons', initialCoupons);
 export const selectedCouponAtom = atom<Coupon | null>(null);
 
 export const applyCouponAtom = atom(null, (get, set, coupon: Coupon) => {
-  const addNotification = get(addNotificationAtom);
   const cart = get(cartAtom);
   const selectedCoupon = get(selectedCouponAtom);
 
@@ -32,7 +31,6 @@ export const applyCouponAtom = atom(null, (get, set, coupon: Coupon) => {
 });
 
 export const addCouponAtom = atom(null, (get, set, newCoupon: Coupon) => {
-  const addNotification = get(addNotificationAtom);
   const coupons = get(couponsAtom);
 
   const existingCoupon = coupons.find((c) => c.code === newCoupon.code);
@@ -45,7 +43,6 @@ export const addCouponAtom = atom(null, (get, set, newCoupon: Coupon) => {
 });
 
 export const deleteCouponAtom = atom(null, (get, set, couponCode: string) => {
-  const addNotification = get(addNotificationAtom);
   const selectedCoupon = get(selectedCouponAtom);
 
   set(couponsAtom, (prev) => prev.filter((c) => c.code !== couponCode));

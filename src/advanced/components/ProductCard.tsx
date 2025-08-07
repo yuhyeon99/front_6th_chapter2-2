@@ -1,10 +1,10 @@
-import { Product } from '../../types';
+import { Product, ProductWithUI } from '../../types';
 import { Button } from './ui/Button';
 
 interface ProductCardProps {
-  product: Product;
-  onAddToCart: (product: Product) => void;
-  getRemainingStock: (product: Product) => number;
+  product: ProductWithUI;
+  onAddToCart: (product: ProductWithUI) => void;
+  getRemainingStock: (product: ProductWithUI) => number;
   formatPrice: (price: number, productId?: string) => string;
 }
 

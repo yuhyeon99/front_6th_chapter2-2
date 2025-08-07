@@ -1,23 +1,18 @@
 // components/pages/AdminPage.tsx
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import { useCoupons } from '../../hooks/useCoupons';
-import { useNotifications } from '../../hooks/useNotifications';
 import { useSetAtom } from 'jotai';
 import { addNotificationAtom } from '../../atoms/notificationAtoms';
 import { formatPrice } from '../../utils/formatters';
-import { Notification as UINotification } from '../ui/Notification';
 import { Button } from '../ui/Button';
 import { ProductWithUI } from '../../../types';
 
 export const AdminPage = () => {
-  const { addNotification } = useNotifications();
   const setAddNotification = useSetAtom(addNotificationAtom);
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
   const {
     coupons,
-    selectedCoupon,
-    setSelectedCoupon,
     addCoupon,
     deleteCoupon,
   } = useCoupons();

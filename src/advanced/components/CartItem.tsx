@@ -1,3 +1,4 @@
+import { CartItem } from '../../types';
 import { Button } from './ui/Button';
 
 // components/CartItem.tsx

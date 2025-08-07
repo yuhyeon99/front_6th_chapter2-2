@@ -14,7 +14,6 @@ export const getRemainingStockAtom = atom((get) => (product: Product) => {
 });
 
 export const addToCartAtom = atom(null, (get, set, product: ProductWithUI) => {
-  const addNotification = get(addNotificationAtom);
   const getRemainingStock = get(getRemainingStockAtom);
   const remainingStock = getRemainingStock(product);
 
@@ -62,9 +61,7 @@ export const removeFromCartAtom = atom(null, (get, set, productId: string) => {
 export const updateQuantityAtom = atom(
   null,
   (get, set, productId: string, newQuantity: number) => {
-    const addNotification = get(addNotificationAtom);
     const products = get(productsAtom);
-    const cart = get(cartAtom);
 
     if (newQuantity <= 0) {
       set(cartAtom, (prevCart) =>
