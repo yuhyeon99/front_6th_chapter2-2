@@ -1,29 +1,32 @@
 
-// components/pages/ShoppingPage.tsx
 import { useState, useCallback, useEffect } from 'react';
-import { calculateCartTotal, calculateItemTotal } from '../../utils/calculators';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { formatPrice } from '../../utils/formatters';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
 import { useCoupons } from '../../hooks/useCoupons';
+import { useNotifications } from '../../hooks/useNotifications';
 import { ProductCard } from '../ProductCard';
 import { CartItem } from '../CartItem';
 import { Button } from '../ui/Button';
-import { Notification } from '../../../types';
+import { cartAtom, clearCartAtom } from '../../atoms/cartAtoms';
+import { selectedCouponAtom } from '../../atoms/couponAtoms';
+import { calculateCartTotal } from '../../utils/calculators';
 
-export const ShoppingPage = ({ addNotification }: { addNotification: (message: string, type?: 'error' | 'success' | 'warning') => void }) => {
+
+export const ShoppingPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [totalItemCount, setTotalItemCount] = useState(0);
 
   const { products } = useProducts();
-  const { cart, setCart, addToCart, removeFromCart, updateQuantity, getRemainingStock } = useCart(addNotification);
-  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } = useCoupons(cart, addNotification);
+  const { cart, addToCart, removeFromCart, updateQuantity, getRemainingStock, calculateItemTotal } = useCart();
+  const { selectedCoupon, setSelectedCoupon, coupons, applyCoupon } = useCoupons();
+  const { addNotification } = useNotifications();
 
-  useEffect(() => {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    setTotalItemCount(count);
-  }, [cart]);
+  const totalItemCount = useAtomValue(cartAtom).reduce((sum, item) => sum + item.quantity, 0);
+  const cartTotal = calculateCartTotal(cart, selectedCoupon);
+  const clearCart = useSetAtom(clearCartAtom);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -38,9 +41,9 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
       `주문이 완료되었습니다. 주문번호: ${orderNumber}`,
       'success'
     );
-    setCart([]);
+    clearCart();
     setSelectedCoupon(null);
-  }, [addNotification, setCart, setSelectedCoupon]);
+  }, [addNotification, clearCart, setSelectedCoupon]);
 
   const filteredProducts = debouncedSearchTerm
     ? products.filter(
@@ -61,7 +64,9 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center flex-1">
-              <h1 className="text-xl font-semibold text-gray-800">SHOP</h1>
+              <h1 className="text-xl font-semibold text-gray-800">
+                SHOP
+              </h1>
               <div className="ml-8 flex-1 max-w-md">
                 <input
                   type="text"
@@ -178,7 +183,7 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                         item={item}
                         onUpdateQuantity={updateQuantity}
                         onRemove={removeFromCart}
-                        calculateItemTotal={(cartItem) => calculateCartTotal(cart, selectedCoupon).totalAfterDiscount}
+                        calculateItemTotal={calculateItemTotal}
                       />
                     ))}
                   </div>
@@ -228,19 +233,19 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                       <div className="flex justify-between">
                         <span className="text-gray-600">상품 금액</span>
                         <span className="font-medium">
-                          {calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount.toLocaleString()}원
+                          {cartTotal.totalBeforeDiscount.toLocaleString()}원
                         </span>
                       </div>
-                      {calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount -
-                        calculateCartTotal(cart, selectedCoupon).totalAfterDiscount >
+                      {cartTotal.totalBeforeDiscount -
+                        cartTotal.totalAfterDiscount >
                         0 && (
                         <div className="flex justify-between text-red-500">
                           <span>할인 금액</span>
                           <span>
                             -
                             {(
-                              calculateCartTotal(cart, selectedCoupon).totalBeforeDiscount -
-                              calculateCartTotal(cart, selectedCoupon).totalAfterDiscount
+                              cartTotal.totalBeforeDiscount -
+                              cartTotal.totalAfterDiscount
                             ).toLocaleString()}
                             원
                           </span>
@@ -249,13 +254,13 @@ export const ShoppingPage = ({ addNotification }: { addNotification: (message: s
                       <div className="flex justify-between py-2 border-t border-gray-200">
                         <span className="font-semibold">결제 예정 금액</span>
                         <span className="font-bold text-lg text-gray-900">
-                          {calculateCartTotal(cart, selectedCoupon).totalAfterDiscount.toLocaleString()}원
+                          {cartTotal.totalAfterDiscount.toLocaleString()}원
                         </span>
                       </div>
                     </div>
 
                     <Button onClick={completeOrder} className="w-full mt-4 py-3">
-                      {calculateCartTotal(cart, selectedCoupon).totalAfterDiscount.toLocaleString()}원 결제하기
+                      {cartTotal.totalAfterDiscount.toLocaleString()}원 결제하기
                     </Button>
 
                     <div className="mt-3 text-xs text-gray-500 text-center">

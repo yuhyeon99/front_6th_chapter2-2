@@ -1,43 +1,25 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Button } from './components/ui/Button';
 import { Notification as UINotification } from './components/ui/Notification';
-import { Notification } from '../types';
 import { ShoppingPage } from './components/pages/ShoppingPage';
 import { AdminPage } from './components/pages/AdminPage';
-
+import { useNotifications } from './hooks/useNotifications';
+import { useAtomValue } from 'jotai';
+import { notificationAtom } from './atoms/notificationAtoms';
 
 const App = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const addNotification = useCallback(
-    (message: string, type: 'error' | 'success' | 'warning' = 'success') => {
-      const id = Date.now().toString();
-      setNotifications((prev) => [...prev, { id, message, type }]);
-
-      setTimeout(() => {
-        setNotifications((prev) => prev.filter((n) => n.id !== id));
-      }, 3000);
-    },
-    []
-  );
-
+  const { notification } = useNotifications();
   const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {notifications.length > 0 && (
+      {notification && (
         <div className="fixed top-20 right-4 z-50 space-y-2 max-w-sm">
-          {notifications.map((notif) => (
-            <UINotification
-              key={notif.id}
-              message={notif.message}
-              type={notif.type}
-              onClose={() =>
-                setNotifications((prev) =>
-                  prev.filter((n) => n.id !== notif.id)
-                )
-              }
-            />
-          ))}
+          <UINotification
+            message={notification.message}
+            type={notification.type}
+            onClose={() => { /* Handled by atom's setTimeout */ }}
+          />
         </div>
       )}
       <header className="bg-white shadow-sm sticky top-0 z-40 border-b">
@@ -61,9 +43,9 @@ const App = () => {
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {isAdmin ? (
-          <AdminPage addNotification={addNotification} />
+          <AdminPage />
         ) : (
-          <ShoppingPage addNotification={addNotification} />
+          <ShoppingPage />
         )}
       </main>
     </div>
