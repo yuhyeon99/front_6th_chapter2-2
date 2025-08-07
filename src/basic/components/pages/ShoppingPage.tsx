@@ -6,7 +6,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
 import { useCoupons } from '../../hooks/useCoupons';
 import { ProductCard } from '../ProductCard';
-import { CartItem } from '../CartItem';
+import { CartItemComponent } from '../CartItem';
 import { Button } from '../ui/Button';
 
 export const ShoppingPage = ({
@@ -186,7 +186,7 @@ export const ShoppingPage = ({
                 ) : (
                   <div className="space-y-3">
                     {cart.map((item) => (
-                      <CartItem
+                      <CartItemComponent
                         key={item.product.id}
                         item={item}
                         onUpdateQuantity={updateQuantity}

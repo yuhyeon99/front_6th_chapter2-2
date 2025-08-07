@@ -1,3 +1,4 @@
+import { CartItem } from '../../types';
 import { Button } from './ui/Button';
 
 // components/CartItem.tsx
@@ -8,7 +9,7 @@ interface CartItemProps {
   calculateItemTotal: (item: CartItem) => number;
 }
 
-export const CartItem = ({
+export const CartItemComponent = ({
   item,
   onUpdateQuantity,
   onRemove,

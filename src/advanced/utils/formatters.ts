@@ -1,7 +1,7 @@
 export const formatPrice = (
   price: number,
-  isAdmin: boolean = false,
   productId?: string,
+  isAdmin: boolean = false,
   remainingStock?: number
 ): string => {
   if (productId && remainingStock !== undefined && remainingStock <= 0) {
