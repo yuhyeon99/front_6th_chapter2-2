@@ -4,8 +4,6 @@ import { Notification as UINotification } from './components/ui/Notification';
 import { ShoppingPage } from './components/pages/ShoppingPage';
 import { AdminPage } from './components/pages/AdminPage';
 import { useNotifications } from './hooks/useNotifications';
-import { useAtomValue } from 'jotai';
-import { notificationAtom } from './atoms/notificationAtoms';
 
 const App = () => {
   const { notification } = useNotifications();
