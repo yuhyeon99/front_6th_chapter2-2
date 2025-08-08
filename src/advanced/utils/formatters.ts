@@ -1,15 +1,7 @@
-export const formatPrice = (
-  price: number,
-  productId?: string,
-  isAdmin: boolean = false,
-  remainingStock?: number
-): string => {
-  if (productId && remainingStock !== undefined && remainingStock <= 0) {
-    return 'SOLD OUT';
-  }
+export const formatPriceForAdmin = (price: number): string => {
+  return `${price.toLocaleString()}원`;
+};
 
-  if (isAdmin) {
-    return `${price.toLocaleString()}원`;
-  }
+export const formatPriceForShop = (price: number): string => {
   return `₩${price.toLocaleString()}`;
 };

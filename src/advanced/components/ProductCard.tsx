@@ -5,7 +5,7 @@ interface ProductCardProps {
   product: ProductWithUI;
   onAddToCart: (product: ProductWithUI) => void;
   getRemainingStock: (product: ProductWithUI) => number;
-  formatPrice: (price: number, productId?: string) => string;
+  formatPrice: (price: number) => string;
 }
 
 export const ProductCard = ({
@@ -57,7 +57,7 @@ export const ProductCard = ({
         {/* 가격 정보 */}
         <div className="mb-3">
           <p className="text-lg font-bold text-gray-900">
-            {formatPrice(product.price, product.id)}
+            {formatPrice(product.price)}
           </p>
           {product.discounts.length > 0 && (
             <p className="text-xs text-gray-500">

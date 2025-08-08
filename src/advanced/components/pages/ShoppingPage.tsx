@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { formatPrice } from '../../utils/formatters';
+import { formatPriceForShop as formatPrice } from '../../utils/formatters';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../hooks/useCart';
 import { useCoupons } from '../../hooks/useCoupons';

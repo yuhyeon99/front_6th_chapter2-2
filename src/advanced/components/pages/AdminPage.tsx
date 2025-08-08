@@ -4,7 +4,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { useCoupons } from '../../hooks/useCoupons';
 import { useSetAtom } from 'jotai';
 import { addNotificationAtom } from '../../atoms/notificationAtoms';
-import { formatPrice } from '../../utils/formatters';
+import { formatPriceForAdmin as formatPrice } from '../../utils/formatters';
 import { Button } from '../ui/Button';
 import { ProductWithUI } from '../../types';
 
@@ -161,7 +161,7 @@ export const AdminPage = () => {
                         {product.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formatPrice(product.price, undefined, true)}
+                        {formatPrice(product.price)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <span
